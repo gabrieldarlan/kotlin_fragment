@@ -7,7 +7,6 @@ import androidx.lifecycle.Observer
 import br.com.alura.technews.R
 import br.com.alura.technews.model.Noticia
 import br.com.alura.technews.ui.activity.NOTICIA_ID_CHAVE
-import br.com.alura.technews.ui.activity.extensions.mostraErro
 import br.com.alura.technews.ui.fragment.extensions.mostraErro
 import br.com.alura.technews.ui.viewmodel.VisualizaNoticiaViewModel
 import kotlinx.android.synthetic.main.visualiza_noticia.*
@@ -17,6 +16,7 @@ import java.lang.IllegalArgumentException
 
 private const val NOTICIA_NAO_ENCONTRADA = "Notícia não encontrada"
 private const val MENSAGEM_FALHA_REMOCAO = "Não foi possível remover notícia"
+private const val TITULO_APPBAR = "Notícia"
 
 class VisualizaNoticiaFragment : Fragment() {
 
@@ -33,11 +33,6 @@ class VisualizaNoticiaFragment : Fragment() {
         setHasOptionsMenu(true)
         verificaIdDaNoticia()
         buscaNoticiaSelecionada()
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
-        inflater?.inflate(R.menu.visualiza_noticia_menu, menu)
-        super.onCreateOptionsMenu(menu, inflater)
 
     }
 
@@ -46,17 +41,21 @@ class VisualizaNoticiaFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return super.onCreateView(
-            inflater,
-            container,
-            savedInstanceState
-        )
-
         return inflater.inflate(
             R.layout.visualiza_noticia,
             container,
             false
         )
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        activity?.title = TITULO_APPBAR
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
+        inflater?.inflate(R.menu.visualiza_noticia_menu, menu)
+        super.onCreateOptionsMenu(menu, inflater)
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
@@ -98,4 +97,5 @@ class VisualizaNoticiaFragment : Fragment() {
             }
         })
     }
+
 }
